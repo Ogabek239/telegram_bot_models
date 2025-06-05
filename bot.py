@@ -244,3 +244,4 @@ class TelegramBot:
         # 5. Check if message.dice exists -> call send_dice() with dice.emoji
         # 6. For unknown types, send a default message
         pass
+        print()
