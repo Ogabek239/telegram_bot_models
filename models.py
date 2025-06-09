@@ -23,6 +23,8 @@ class Chat:
     def __str__(self):
         return f"Chat(id={self.id}, type={self.type}, title={self.title})"
 
+
+
 class Voice:
     def __init__(self, voice_json):
         self.file_id = voice_json.get('file_id')
@@ -42,6 +44,14 @@ class Dice:
     def __init__(self, dice_json):
         self.emoji = dice_json.get("emoji")
         self.value = dice_json.get("value")
+
+class Video:
+    def __init__(self, video_json):
+        self.file_id = video_json.get('file_id')
+        self.file_unique_id = video_json.get('file_unique_id')
+        self.width = video_json.get('width')
+        self.height = video_json.get('height')
+        self.duration = video_json.get('duration')
 
 
 class Message:
@@ -72,6 +82,10 @@ class Message:
             self.dice = Dice(message_data["dice"])
         else:
             self.dice = None
+        if message_data.get('video'):
+            self.video = Video(message_data['video'])
+        else:
+            self.video = None
 
     def __str__(self):
         return (
