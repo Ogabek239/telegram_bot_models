@@ -44,6 +44,13 @@ def main():
                         emoji=update.message.dice.emoji
                     )
 
+                if update.message.video:
+                    print(f"Video message received: {update.message.video}")
+                    bot.send_video(
+                        update.message.chat.id,
+                        video_file_id=update.message.video.file_id
+                    )
+
         time.sleep(1)
 
 if __name__ == "__main__":
