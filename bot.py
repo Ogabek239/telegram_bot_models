@@ -143,8 +143,6 @@ class TelegramBot:
             response = requests.post(url, data=data)
             return response.json()
         except Exception as e:
-            print(f"Exception while sending dice: {e}")
-            return None
 
     def send_voice(self, chat_id, voice_file_id):
         """
@@ -172,13 +170,6 @@ class TelegramBot:
         pass
         url = f"{self.base_url}/sendVoice"
         data = {"chat_id": chat_id, "voice": voice_file_id}
-
-        try:
-            response = requests.post(url, data=data)
-            return response.json()
-        except Exception as e:
-            print(f"Exception while sending voice: {e}")
-            return None
 
     def send_photo(self, chat_id, photo_file_id, caption=None):
         """
@@ -208,15 +199,6 @@ class TelegramBot:
         pass
         url = f"{self.base_url}/sendPhoto"
         data = {"chat_id": chat_id, "photo": photo_file_id}
-        if caption:
-            data["caption"] = caption
-
-        try:
-            response = requests.post(url, data=data)
-            return response.json()
-        except Exception as e:
-            print(f"Exception while sending photo: {e}")
-            return None
 
     def send_video(self, chat_id, video_file_id, caption=None):
         """
