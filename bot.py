@@ -136,6 +136,15 @@ class TelegramBot:
         # 2. Create data dict with chat_id and emoji
         # 3. Make POST request and return response
         pass
+        url = f"{self.base_url}/sendDice"
+        data = {"chat_id": chat_id, "emoji": emoji}
+
+        try:
+            response = requests.post(url, data=data)
+            return response.json()
+        except Exception as e:
+            print(f"Exception while sending dice: {e}")
+            return None
 
     def send_voice(self, chat_id, voice_file_id):
         """
@@ -161,6 +170,15 @@ class TelegramBot:
         # 2. Create data dict with chat_id and voice (using file_id)
         # 3. Make POST request and return response
         pass
+        url = f"{self.base_url}/sendVoice"
+        data = {"chat_id": chat_id, "voice": voice_file_id}
+
+        try:
+            response = requests.post(url, data=data)
+            return response.json()
+        except Exception as e:
+            print(f"Exception while sending voice: {e}")
+            return None
 
     def send_photo(self, chat_id, photo_file_id, caption=None):
         """
@@ -188,6 +206,17 @@ class TelegramBot:
         # 3. Add caption to data if provided
         # 4. Make POST request and return response
         pass
+        url = f"{self.base_url}/sendPhoto"
+        data = {"chat_id": chat_id, "photo": photo_file_id}
+        if caption:
+            data["caption"] = caption
+
+        try:
+            response = requests.post(url, data=data)
+            return response.json()
+        except Exception as e:
+            print(f"Exception while sending photo: {e}")
+            return None
 
     def send_video(self, chat_id, video_file_id, caption=None):
         """
@@ -244,4 +273,3 @@ class TelegramBot:
         # 5. Check if message.dice exists -> call send_dice() with dice.emoji
         # 6. For unknown types, send a default message
         pass
-        print()
