@@ -23,6 +23,26 @@ class Chat:
     def __str__(self):
         return f"Chat(id={self.id}, type={self.type}, title={self.title})"
 
+class Voice:
+    def __init__(self, voice_json):
+        self.file_id = voice_json.get('file_id')
+        self.file_unique_id = voice_json.get('file_unique_id')
+        self.width = voice_json.get('width')
+        self.height = voice_json.get('height')
+
+class Photo:
+    def __init__(self, photo_list):
+        best_photo = photo_list[-1]
+        self.file_id = best_photo.get('file_id')
+        self.file_unique_id = best_photo.get('file_unique_id')
+        self.width = best_photo.get('width')
+        self.height = best_photo.get('height')
+
+class Dice:
+    def __init__(self, dice_json):
+        self.emoji = dice_json.get("emoji")
+        self.value = dice_json.get("value")
+
 
 class Message:
     def __init__(self, message_data):
@@ -40,11 +60,18 @@ class Message:
             self.chat = Chat(message_data["chat"])
         else:
             self.chat = None
-
-        # TODO: Students need to add parsing for voice, photo, and dice here
-        self.voice = None  # Placeholder - students will implement Voice class
-        self.photo = None  # Placeholder - students will implement Photo class
-        self.dice = None  # Placeholder - students will implement Dice class
+        if message_data.get('voice'):
+            self.voice = Voice(message_data['voice'])
+        else:
+            self.voice = None
+        if message_data.get("photo"):
+            self.photo = Photo(message_data["photo"])
+        else:
+            self.photo = None
+        if message_data.get('dice'):
+            self.dice = Dice(message_data["dice"])
+        else:
+            self.dice = None
 
     def __str__(self):
         return (
