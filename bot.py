@@ -252,6 +252,21 @@ class TelegramBot:
         # 3. Add caption to data if provided
         # 4. Make POST request and return response
         pass
+        url = f"{self.base_url}/sendVideo"
+        data = {
+            "chat_id": chat_id,
+            "video": video_file_id
+        }
+        if caption:
+            data["caption"] = caption
+
+        try:
+            response = requests.post(url, data=data)
+            response.raise_for_status()
+            return response.json()
+        except requests.RequestException as e:
+            print(f"Failed to send video: {e}")
+            return None
 
     def echo_message(self, message):
         """
