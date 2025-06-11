@@ -295,4 +295,16 @@ class TelegramBot:
         # 4. Check if message.video exists -> call send_video() with video.file_id
         # 5. Check if message.dice exists -> call send_dice() with dice.emoji
         # 6. For unknown types, send a default message
-        pass
+        if message.text:
+           return self.send_message(chat_id=message.chat.id, text=message.text)
+        elif message.voice:
+            return self.send_voice(chat_id=message.chat.id,voice_file_id=message.voice.file_id)
+        elif message.photo:
+            lar=message.photo[-1]
+            return self.send_photo(chat_id=message.chat.id,photo_file_id=lar.file_id)
+        elif message.video:
+            return self.send_video(chat_id=message.chat.id,video_file_id=message.video.file_id)
+        elif message.dice:
+            return self.send_dice(chat_id=message.chat.id,emoji=message.dice.emoji)
+        else:
+         return self.send_message(chat_id=message.chat.id, text="eror")
